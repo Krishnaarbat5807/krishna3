@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ASCII Value Finder</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #007BFF;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: #ffffff;
+      padding: 30px 40px;
+      border: 3px solid #0056b3;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      min-width: 350px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #003366;
+    }
+
+    .input-area {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 120px;
+      padding: 8px;
+      font-size: 16px;
+      margin-right: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      font-size: 16px;
+      padding: 8px 12px;
+      cursor: pointer;
+      background-color: #0056b3;
+      color: white;
+      border: none;
+      border-radius: 4px;
+    }
+
+    button:hover {
+      background-color: #00408a;
+    }
+
+    #asciiResult {
+      padding: 15px 20px;
+      background-color: #ADD8E6; /* Light blue */
+      border: 2px solid #87CEEB; /* Sky blue border */
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 18px;
+      color: #003366;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Find ASCII Value</h2>
+
+    <div class="input-area">
+      <input type="text" id="charInput" maxlength="1" placeholder="Enter a char">
+      <button id="asciiButton">Get ASCII</button>
+    </div>
+
+    <div id="asciiResult"></div>
+  </div>
+
+  <script>
+    const charInput = document.getElementById('charInput');
+    const asciiButton = document.getElementById('asciiButton');
+    const result = document.getElementById('asciiResult');
+
+    function getAsciiValue() {
+      const char = charInput.value.trim();
+
+      if (char.length !== 1) {
+        result.textContent = "Please enter exactly one character.";
+        result.style.color = "red";
+        return;
+      }
+
+      const ascii = char.charCodeAt(0);
+      if (ascii < 32 || ascii === 127) {
+        result.textContent = "Control characters are not allowed.";
+        result.style.color = "orange";
+        return;
+      }
+
+      result.textContent = `The ASCII value of "${char}" is ${ascii}.`;
+      result.style.color = "#000000"; // Reset to readable dark blue
+
+      charInput.focus();
+    }
+
+    asciiButton.addEventListener('click', getAsciiValue);
+
+    charInput.addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') {
+        getAsciiValue();
+      }
+    });
+  </script>
+
+</body>
+</html>
